@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import Weather from './components/Weather';
 
+const apikey = process.env.REACT_APP_API_KEY;
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // this.getWeatherData();
+    this.getWeatherData();
   }
 
   // async getWeatherData() {
@@ -27,7 +28,7 @@ class App extends React.Component {
   // }
 
   getWeatherData() {
-    axios.get('https://api.openweathermap.org/data/2.5/forecast?q=london&appid=&units=imperial');
+    axios.get('https://api.openweathermap.org/data/2.5/forecast?q=london&appid=' + apikey + '&units=imperial')
     .then(response => {
       // console.log(response.data);
       this.setState({ weather: response.data });
@@ -38,7 +39,8 @@ class App extends React.Component {
     if(this.state.weather === null) {
       return <h2>no information</h2>
     } else {
-      this.state.weather.list.map(listItem => <Weather />);
+      return this.state.weather.list.map(listItem => <Weather dt={ listItem.dt_txt } />);
+      // this.state.weather.list.map(listItem => console.log(listItem.dt_txt));
     }
   }
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Weather() {
+function Weather(props) {
   return (
     <div>
-      <h2>weather component</h2>
+      <h2>Date and time: { props.dt }</h2>
     </div>
   );
 };
